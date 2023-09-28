@@ -1,18 +1,20 @@
 # Copyright IBM Corp. 2020, 2023
 # Made available under the MIT License
 
-name: 'stepzen login'
-description: 'Log into stepzen'
+name: 'Login to StepZen Server'
+author: 'IBM'
+description: |
+  Log into StepZen Server from GitHub Actions
 
 inputs:
   account:
-    description: 'account name'
+    description: 'StepZen account name'
     required: true
   adminkey:
-    description: 'admin key'
+    description: 'Admin key of the StepZen account'
     required: true
   domain:
-    description: 'stepzen domain (defaults to stepzen.net)'
+    description: 'StepZen domain (defaults to stepzen.net)'
     required: true
     default: 'stepzen.net'
 
