@@ -1,31 +1,31 @@
 # Copyright IBM Corp. 2023
 # Made available under the MIT License
 
-name: 'Login to StepZen Server'
-author: 'IBM'
+name: "Login to StepZen Server"
+author: "IBM"
 description: |
   Log into StepZen Server
 
 inputs:
   account:
-    description: 'StepZen account name'
+    description: "StepZen account name"
     required: true
   adminkey:
-    description: 'Admin key of the StepZen account'
+    description: "Admin key of the StepZen account"
     required: true
   domain:
-    description: 'StepZen domain (defaults to stepzen.net)'
+    description: "StepZen domain (defaults to stepzen.net)"
     required: true
-    default: 'stepzen.net'
+    default: "stepzen.net"
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
-    - name: 'login'
+    - name: "login"
       run: |
         stepzen login ${{ inputs.domain }} --account ${{ inputs.account }} --adminkey ${{ inputs.adminkey }}
       shell: bash
-    - name: 'set account environment variables'
+    - name: "set account environment variables"
       run: |
         apikey=$(stepzen whoami --apikey)
         echo "::add-mask::${apikey}"
