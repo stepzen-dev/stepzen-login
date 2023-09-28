@@ -21,6 +21,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    # Don't assume the admin key came from a secret so mask it for safety
+    - name: mask
+      run: echo "::add-mask::${ inputs.adminkey }"
+      shell: bash
     - name: "login"
       run: |
         stepzen login ${{ inputs.domain }} --account ${{ inputs.account }} --adminkey ${{ inputs.adminkey }}
