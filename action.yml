@@ -1,10 +1,10 @@
-# Copyright IBM Corp. 2020, 2023
+# Copyright IBM Corp. 2023
 # Made available under the MIT License
 
 name: 'Login to StepZen Server'
 author: 'IBM'
 description: |
-  Log into StepZen Server from GitHub Actions
+  Log into StepZen Server
 
 inputs:
   account:
@@ -22,10 +22,8 @@ runs:
   using: 'composite'
   steps:
     - name: 'login'
-      if: endsWith(inputs.domain, '.net') || endsWith(inputs.domain, 'openshiftapps.com')
       run: |
         stepzen login ${{ inputs.domain }} --account ${{ inputs.account }} --adminkey ${{ inputs.adminkey }}
-        echo "STEPZEN_DOMAIN=$(stepzen whoami --domain)" >> $GITHUB_ENV
       shell: bash
     - name: 'set account environment variables'
       run: |
@@ -33,4 +31,5 @@ runs:
         echo "::add-mask::${apikey}"
         echo "STEPZEN_ACCOUNT=${{ inputs.account }}" >> $GITHUB_ENV
         echo "STEPZEN_APIKEY=${apikey}" >> $GITHUB_ENV
+        echo "STEPZEN_DOMAIN=$(stepzen whoami --domain)" >> $GITHUB_ENV
       shell: bash
