@@ -23,7 +23,7 @@ runs:
   steps:
     # Don't assume the admin key came from a secret so mask it for safety
     - name: mask
-      run: echo "::add-mask::${ inputs.adminkey }"
+      run: echo "::add-mask::${{ inputs.adminkey }}"
       shell: bash
     - name: "login"
       run: |
