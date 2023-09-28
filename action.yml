@@ -1,0 +1,34 @@
+# Copyright IBM Corp. 2020, 2023
+# Made available under the MIT License
+
+name: 'stepzen login'
+description: 'Log into stepzen'
+
+inputs:
+  account:
+    description: 'account name'
+    required: true
+  adminkey:
+    description: 'admin key'
+    required: true
+  domain:
+    description: 'stepzen domain (defaults to stepzen.net)'
+    required: true
+    default: 'stepzen.net'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 'login'
+      if: endsWith(inputs.domain, '.net') || endsWith(inputs.domain, 'openshiftapps.com')
+      run: |
+        stepzen login ${{ inputs.domain }} --account ${{ inputs.account }} --adminkey ${{ inputs.adminkey }}
+        echo "STEPZEN_DOMAIN=$(stepzen whoami --domain)" >> $GITHUB_ENV
+      shell: bash
+    - name: 'set account environment variables'
+      run: |
+        apikey=$(stepzen whoami --apikey)
+        echo "::add-mask::${apikey}"
+        echo "STEPZEN_ACCOUNT=${{ inputs.account }}" >> $GITHUB_ENV
+        echo "STEPZEN_APIKEY=${apikey}" >> $GITHUB_ENV
+      shell: bash
