@@ -27,7 +27,7 @@ outputs:
     value: ${{ steps.output.outputs.account }}
   apikey:
     description: "API key for the account."
-    value: ${{ steps.output.outputs.apikiey }}
+    value: ${{ steps.output.outputs.apikey }}
 
 runs:
   using: "composite"
