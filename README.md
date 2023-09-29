@@ -2,8 +2,6 @@
 
 This action logs into the StepZen Server in the specified `domain`, which defaults to `stepzen.net`.
 
-It sets the `STEPZEN_ACCOUNT`, `STEPZEN_APIKEY` and `STEPZEN_DOMAIN` environment variables.
-
 # What's new
 
 Outputs are used instead of environment variables.
