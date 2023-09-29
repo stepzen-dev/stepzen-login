@@ -23,11 +23,11 @@ outputs:
     description: "Domain the account is logged into."
     value: ${{ steps.output.outputs.domain }}
   account:
-    account: "Account that is logged in."
-    value: ${{ steps.output.outputs.domain }}
+    description: "Account that is logged in."
+    value: ${{ steps.output.outputs.account }}
   apikey:
-    account: "API key for the account."
-    value: ${{ steps.output.outputs.domain }}
+    description: "API key for the account."
+    value: ${{ steps.output.outputs.apikiey }}
 
 runs:
   using: "composite"
