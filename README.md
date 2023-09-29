@@ -6,7 +6,7 @@ It sets the `STEPZEN_ACCOUNT`, `STEPZEN_APIKEY` and `STEPZEN_DOMAIN` environment
 
 # What's new
 
-First iteration.
+Outputs are used instead of environment variables.
 
 # Usage
 
