@@ -2,8 +2,6 @@
 
 This action logs into the StepZen Server in the specified `domain`, which defaults to `stepzen.net`.
 
-It sets the `STEPZEN_ACCOUNT`, `STEPZEN_APIKEY` and `STEPZEN_DOMAIN` environment variables.
-
 # What's new
 
 Outputs are used instead of environment variables.
@@ -12,7 +10,7 @@ Outputs are used instead of environment variables.
 
 ## Pre-requisites
 
-StepZen CLI must be installed.
+Node and StepZen CLI must be installed, see [stepzen-dev/stepzen-install action](https://github.com/stepzen-dev/stepzen-install/blob/main/README.md).
 
 ## Inputs
 
