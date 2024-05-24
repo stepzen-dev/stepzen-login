@@ -16,13 +16,13 @@ Node and StepZen CLI must be installed, see [stepzen-dev/stepzen-install action]
 
 - `domain` - StepZen domain (defaults to stepzen.net)
 - `account` - StepZen account name
-- `adminkey` - Admin key of the StepZen account
+- `adminkey` - Admin key of the StepZen account. If the workflow does not pull the key from GitHub secrets then it must ensure the key is masked using `::add-mask::`.
 
 ## Outputs
 
 - `domain` - StepZen domain
 - `account` - StepZen account name
-- `apikey` - API key for the account (not the admin key)
+- `apikey` - API key for the account (not the admin key). The value is masked using `::add-mask::`.
 
 ## Example
 

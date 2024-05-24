@@ -1,4 +1,4 @@
-# Copyright IBM Corp. 2023
+# Copyright IBM Corp. 2023, 2024
 # Made available under the MIT License
 
 name: "Login to StepZen Server"
@@ -15,7 +15,7 @@ inputs:
     description: "StepZen account name"
     required: true
   adminkey:
-    description: "Admin key of the StepZen account"
+    description: "Admin key of the StepZen account - ensure key is masked or comes from GitHub secrets"
     required: true
 
 outputs:
@@ -32,12 +32,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    # Don't assume the admin key came from a secret so mask it for safety
-    - name: mask
-      shell: bash
-      run: |
-        adminkey=${{ inputs.adminkey }}
-        echo "::add-mask::${adminkey}"
     - name: "login"
       run: |
         stepzen login ${{ inputs.domain }} --account ${{ inputs.account }} --adminkey ${{ inputs.adminkey }}
