@@ -17,15 +17,15 @@ inputs:
   adminkey:
     description: "Admin key of the StepZen account"
     required: true
-  retries:
+  max_attempts:
     description: "Number of retry attempts."
     required: false
     default: "3"
-  retryWaitSeconds:
+  retry_wait_seconds:
     description: "Time to wait between retries in seconds."
     required: false
     default: "10"
-  timeoutSeconds:
+  timeout_seconds:
     description: "Seconds to wait before attempt times out"
     required: false
     default: "60"
@@ -54,9 +54,9 @@ runs:
     - name: "login"
       uses: nick-fields/retry@v3
       with:
-        timeout_seconds: ${{ inputs.timeoutSeconds }}
-        max_attempts: ${{ inputs.retries }}
-        retry_wait_seconds: ${{ inputs.retryWaitSeconds }}
+        timeout_seconds: ${{ inputs.timeout_seconds }}
+        max_attempts: ${{ inputs.max_attempts }}
+        retry_wait_seconds: ${{ inputs.retry_wait_seconds }}
         shell: bash
         command: stepzen login ${{ inputs.domain }} --account ${{ inputs.account }} --adminkey ${{ inputs.adminkey }}
     - id: output
