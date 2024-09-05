@@ -19,6 +19,7 @@ Node and StepZen CLI must be installed, see [stepzen-dev/stepzen-install action]
 - `adminkey` - Admin key of the StepZen account
 - `retries` - Number of retry attempts.
 - `retryWaitSeconds` - Time to wait between retries in seconds.
+- `timeoutSeconds` - Seconds to wait before attempt times out.
 
 ## Outputs
 

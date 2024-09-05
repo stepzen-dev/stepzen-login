@@ -25,6 +25,11 @@ inputs:
     description: "Time to wait between retries in seconds."
     required: false
     default: "10"
+  timeoutSeconds:
+    description: "Seconds to wait before attempt times out"
+    required: false
+    default: "60"
+  
 
 outputs:
   domain:
@@ -47,22 +52,13 @@ runs:
         adminkey=${{ inputs.adminkey }}
         echo "::add-mask::${adminkey}"
     - name: "login"
-      run: |
-        retries=${{ inputs.retries }}
-        retry_wait=${{ inputs.retryWaitSeconds }}
-
-        count=0
-        until [ $count -ge $retries ]
-        do
-          stepzen login ${{ inputs.domain }} --account ${{ inputs.account }} --adminkey ${{ inputs.adminkey }} && break
-          count=$((count+1))
-          sleep $retry_wait
-        done
-        if [ $count -ge $retries ]; then
-          echo "Stepzen login failed after $retries attempts."
-          exit 1
-        fi        
-      shell: bash
+      uses: nick-fields/retry@v3
+      with:
+        timeout_seconds: ${{ inputs.timeoutSeconds }}
+        max_attempts: ${{ inputs.retries }}
+        retry_wait_seconds: ${{ inputs.retryWaitSeconds }}
+        shell: bash
+        command: stepzen login ${{ inputs.domain }} --account ${{ inputs.account }} --adminkey ${{ inputs.adminkey }}
     - id: output
       run: |
         apikey=$(stepzen whoami --apikey)
