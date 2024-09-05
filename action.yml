@@ -17,6 +17,19 @@ inputs:
   adminkey:
     description: "Admin key of the StepZen account"
     required: true
+  max_attempts:
+    description: "Number of retry attempts."
+    required: false
+    default: "3"
+  retry_wait_seconds:
+    description: "Time to wait between retries in seconds."
+    required: false
+    default: "10"
+  timeout_seconds:
+    description: "Seconds to wait before attempt times out"
+    required: false
+    default: "60"
+  
 
 outputs:
   domain:
@@ -39,9 +52,13 @@ runs:
         adminkey=${{ inputs.adminkey }}
         echo "::add-mask::${adminkey}"
     - name: "login"
-      run: |
-        stepzen login ${{ inputs.domain }} --account ${{ inputs.account }} --adminkey ${{ inputs.adminkey }}
-      shell: bash
+      uses: nick-fields/retry@v3
+      with:
+        timeout_seconds: ${{ inputs.timeout_seconds }}
+        max_attempts: ${{ inputs.max_attempts }}
+        retry_wait_seconds: ${{ inputs.retry_wait_seconds }}
+        shell: bash
+        command: stepzen login ${{ inputs.domain }} --account ${{ inputs.account }} --adminkey ${{ inputs.adminkey }}
     - id: output
       run: |
         apikey=$(stepzen whoami --apikey)
