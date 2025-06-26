@@ -66,4 +66,5 @@ runs:
         echo "domain=$(stepzen whoami --domain)" >> $GITHUB_OUTPUT
         echo "account=${{ inputs.account }}" >> $GITHUB_OUTPUT
         echo "apikey=${apikey}" >> $GITHUB_OUTPUT
+        cat $GITHUB_OUTPUT
       shell: bash
