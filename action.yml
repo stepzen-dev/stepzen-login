@@ -61,9 +61,13 @@ runs:
         command: stepzen login ${{ inputs.domain }} --account ${{ inputs.account }} --adminkey ${{ inputs.adminkey }}
     - id: output
       run: |
+        xxapikey='secret-1'
         apikey=$(stepzen whoami --apikey)
-        echo "::add-mask::${apikey}"
+        # echo "::add-mask::${xxapikey}"
         echo "domain=$(stepzen whoami --domain)" >> $GITHUB_OUTPUT
         echo "account=${{ inputs.account }}" >> $GITHUB_OUTPUT
-        echo "apikey=${apikey}" >> $GITHUB_OUTPUT
+        echo "apikey=${xxapikey}" >> $GITHUB_OUTPUT
+        echo START
+        cat $GITHUB_OUTPUT
+        echo END
       shell: bash
